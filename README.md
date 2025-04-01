@@ -87,7 +87,7 @@ For the final step, teams must submit a written report and give a 20-minute pres
 | Week 6 (Mar 24)  | Federated Generative AI             | Vertical FL              | Project proposal         |
 | Week 7 (Mar 31)  |  Robust Distributed Learning        | HW 2 Q&A                 |                          |
 | Week 8 (Apr 7)   |  Attacks and Defenses I             | Attacks                  | HW 2                     |
-| Week 9 (Apr 14)  | Project interview (online)          | Defenses                 | Project midterm          |
+| Week 9 (online)  | Project interview (*Apr 14*)        | Defenses (*Apr 16*)      | Project midterm          |
 | Week 10 (Apr 21) | *No lecture*                        | *No Lab*                 |                          |
 | Week 11 (Apr 28) | Attacks and Defenses II             | HW 3 Q&A                 |                          |
 | Week 12 (May 5)  | Privacy Enhancing Technology        | *No Lab*                 | HW 3                     |
