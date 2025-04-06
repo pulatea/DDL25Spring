@@ -1,0 +1,12 @@
+[project]
+name = "ddl_lab"
+version = "0.0.1"
+
+[tool.setuptools]
+packages = [
+    "tutorial_1a",
+    "tutorial_1b",
+    "tutorial_2a",
+    "tutorial_2b",
+    "tutorial_3"
+]

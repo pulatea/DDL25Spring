@@ -24,4 +24,4 @@ Before working on any lab task, please follow the following steps to get up and 
 - Have a [VS Code](https://code.visualstudio.com/Download) installation with the [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) extension packs (other IDEs like [PyCharm](https://www.jetbrains.com/pycharm/download/) also work, but this guide does not contain specific configuration files/steps for them).
 - From the root directory of this repository, execute `python3 -m venv lab/.venv`.
 - Open the repository in VS Code, and [create a new terminal](https://code.visualstudio.com/docs/terminal/basics) (checking that the beginning of the line starts with `(.venv)` to signal the correct Python environment got activated).
-- Execute `pip install -r lab/requirements.txt` in the terminal.
+- Move to the `lab` directory and execute `pip install -r requirements.txt` in the terminal.
