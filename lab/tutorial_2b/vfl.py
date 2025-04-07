@@ -45,7 +45,7 @@ class VFLNetwork(nn.Module):
         super(VFLNetwork, self).__init__()
         self.num_cli = None
         self.cli_features = None
-        self.bottom_models = local_models
+        self.bottom_models = nn.ModuleList(local_models)
         self.top_model = TopModel(self.bottom_models, n_outs)
         self.optimizer = optim.AdamW(self.parameters())
         self.criterion = nn.CrossEntropyLoss()
