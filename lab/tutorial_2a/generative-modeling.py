@@ -1,13 +1,14 @@
-from torch import nn, optim
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
 import torch
 import torch.nn.functional as F
-from pathlib import Path
-import pandas as pd
-import numpy as np
+from centralized import HeartDiseaseNN as EvaluatorModel
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
-from centralized import HeartDiseaseNN as EvaluatorModel
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from torch import nn, optim
 
 
 class Autoencoder(nn.Module):
@@ -24,19 +25,19 @@ class Autoencoder(nn.Module):
         self.linear3 = nn.Linear(H2, H2)
         self.lin_bn3 = nn.BatchNorm1d(num_features=H2)
 
-        #         # Latent vectors mu and sigma
+        # Latent vectors mu and sigma
         self.fc1 = nn.Linear(H2, latent_dim)
         self.bn1 = nn.BatchNorm1d(num_features=latent_dim)
         self.fc21 = nn.Linear(latent_dim, latent_dim)
         self.fc22 = nn.Linear(latent_dim, latent_dim)
 
-        #         # Sampling vector
+        # Sampling vector
         self.fc3 = nn.Linear(latent_dim, latent_dim)
         self.fc_bn3 = nn.BatchNorm1d(latent_dim)
         self.fc4 = nn.Linear(latent_dim, H2)
         self.fc_bn4 = nn.BatchNorm1d(H2)
 
-        #         # Decoder
+        # Decoder
         self.linear4 = nn.Linear(H2, H2)
         self.lin_bn4 = nn.BatchNorm1d(num_features=H2)
         self.linear5 = nn.Linear(H2, H)
