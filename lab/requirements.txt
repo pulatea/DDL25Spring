@@ -8,3 +8,4 @@ torchvision==0.20.1
 tqdm==4.66.6
 git+https://github.com/NikolayBlagoev/simplellm.git
 transformers==4.47.1
+-e .

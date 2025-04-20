@@ -145,10 +145,8 @@ from abc import ABC, abstractmethod
 class Client(ABC):
     def __init__(self, client_data: Subset, batch_size: int) -> None:
         self.model = MnistCnn().to(device)
-        self.generator = torch.Generator()
         self.loader_train = DataLoader(
-            client_data, batch_size=batch_size, shuffle=True,
-            drop_last=False, generator=self.generator)
+            client_data, batch_size=batch_size, shuffle=False, drop_last=False)
 
     @abstractmethod
     def update(self, weights: list[torch.Tensor], seed: int) -> list[torch.Tensor]:
@@ -194,10 +192,8 @@ class CentralizedServer(Server):
     def __init__(self, lr: float, batch_size: int, seed: int) -> None:
         super().__init__(lr, batch_size, seed)
         self.optimizer = SGD(params=self.model.parameters(), lr=lr)
-        self.generator = torch.Generator()
         self.loader_train = DataLoader(
-            train_dataset, batch_size=batch_size, shuffle=True,
-            drop_last=False, generator=self.generator)
+            train_dataset, batch_size=batch_size, shuffle=True, drop_last=False)
         self.clients = []
 
     def run(self, nr_rounds: int) -> RunResult:
@@ -206,7 +202,7 @@ class CentralizedServer(Server):
 
         for epoch in tqdm(range(nr_rounds), desc="Epochs", leave=False):
             start_time = perf_counter()
-            self.generator.manual_seed(self.seed + epoch + 1)
+            torch.manual_seed(self.seed + epoch + 1)
             train_epoch(self.model, self.loader_train, self.optimizer)
             elapsed_time += perf_counter() - start_time
             run_result.wall_time.append(round(elapsed_time, 1))
@@ -241,7 +237,7 @@ class GradientClient(Client):
                 client_values.grad = None
 
         # seeding is not strictly necessary here
-        self.generator.manual_seed(seed)
+        torch.manual_seed(seed)
         self.model.train()
 
         # this will always have one iteratioon
@@ -324,7 +320,7 @@ class WeightClient(Client):
             for client_values, server_values in zip(self.model.parameters(), weights):
                 client_values[:] = server_values
 
-        self.generator.manual_seed(seed)
+        torch.manual_seed(seed)
 
         for _epoch in range(self.nr_epochs):
             train_epoch(self.model, self.loader_train, self.optimizer)
